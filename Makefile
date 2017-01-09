@@ -18,7 +18,7 @@ setup:
 # Cross-build
 cross-build: deps setup
 	rm -rf ./out
-	gox $(BUILD_FLAGS) -output "./out/${NAME}${VERSION}_{{.OS}}_{{.Arch}}/{{.Dir}}"
+	gox $(BUILD_FLAGS) -output "./out/${NAME}_${VERSION}_{{.OS}}_{{.Arch}}"
 
 ## Lint
 lint: setup deps
@@ -41,7 +41,7 @@ package: cross-build
 		&& popd
 
 ## Release
-release: setup cross-build
+release: setup package
 	ghr $(VERSION) pkg/
 
 ## Show help
